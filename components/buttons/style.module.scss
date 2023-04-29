@@ -1,0 +1,21 @@
+
+    .base{
+        height: 40px;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        background-color: var(--white);
+    }
+
+.red{
+    color: red;
+}
+
+.blue{
+    color: var(--blue-700);
+    border: 1px solid var(--blue-600);
+    &:hover{
+        color: var(--white);
+        background-color: var(--blue-700);
+    }
+}

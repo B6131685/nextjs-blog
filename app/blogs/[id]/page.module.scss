@@ -1,0 +1,62 @@
+.container {
+  padding: 50px 30px 0 70px;
+  padding-bottom: 50px;
+  .content {
+    .title {
+      margin-bottom: 90px;
+      display: flex;
+      gap: 15px;
+      flex-direction: column;
+
+      .tageSection {
+        display: flex;
+        gap: 10px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .Header {
+          display: flex;
+          justify-content: space-between;
+            align-items: center;
+          .control {
+            display: flex;
+            gap: 10px;
+            button{
+                font-size: 18px;
+            }
+        }
+      }
+    }
+
+    .writer {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.loading{
+  .loading_tage{
+    display: flex;
+    gap: 20px;
+
+    .loading_tage_item{
+      border-radius: 20%;
+    }
+  }
+
+  .info{
+    display: flex;
+    gap: 20px;
+  }
+}

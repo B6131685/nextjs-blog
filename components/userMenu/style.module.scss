@@ -1,0 +1,36 @@
+.container{
+    position: relative;
+    input[type="checkbox"]{
+        display: none;
+    }
+
+    .menu{
+        display: none;
+        position: absolute;
+        top: 45px;
+        right: 0;
+        width: 150px;
+        height: auto;
+        background-color: var(--white300);
+        border-radius: 15px;
+        z-index: 1;
+        box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+        padding: 10px;
+    }
+
+    input[type="checkbox"]:checked ~ .menu{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+}
+
+.itemMenu{
+    cursor: pointer;
+    opacity: 0.8;
+
+    &:hover{
+        opacity: 1;
+    }
+}

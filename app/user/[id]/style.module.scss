@@ -1,0 +1,17 @@
+.container{
+    padding: 50px 20px;
+
+    .Writer_info{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .listBlogs{
+        margin-top: 50px;
+        display: grid;
+        gap: 30px;
+    }
+}
