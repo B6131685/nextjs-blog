@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes } from "react";
 import s from "./style.module.scss";
-import { IoMdCloseCircle } from "react-icons/Io";
+import { IoMdCloseCircle } from "react-icons/io";
 interface ITageLabel extends ButtonHTMLAttributes<HTMLSpanElement> {
   label: string;
   closeMark?: () => void;
