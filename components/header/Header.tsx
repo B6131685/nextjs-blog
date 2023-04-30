@@ -83,9 +83,6 @@ const Header = ( {hiddenMenuSideNav = false}:Props) => {
                     <Link href="/new">
                       <CButton
                         variant="blue"
-                        onClick={() => {
-                          console.log("Create Post");
-                        }}
                       >
                         Create Blog
                       </CButton>{" "}

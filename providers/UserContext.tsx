@@ -59,7 +59,6 @@ const UserContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   async function login():Promise<{msg: 'success' | 'fail'}> {
-    console.log('login with context');
     
     await dispatch({ type: "login" });
     

@@ -21,12 +21,12 @@ import {
 import ValidateLabel from "@/components/validateLabel/ValidateLabel";
 import { useRouter } from "next/navigation";
 import { ISingleblog } from "@/services/blog/interface";
+import { Value } from "sass";
 
 interface Props {
-  id?: string | null;
-  blogData?: ISingleblog | undefined;
+  blogData?: ISingleblog;
 }
-const NewPost = ({ blogData = undefined }: Props) => {
+const NewPost = ({ blogData }: Props) => {
   const queryClient = useQueryClient();
   const { data: session } = useSession();
 
@@ -106,14 +106,12 @@ const NewPost = ({ blogData = undefined }: Props) => {
         },
         {
           onSuccess(data: { acknowledged: boolean; insertedId: string }) {
-            console.log("On Success", data);
             queryClient.invalidateQueries({ queryKey: ["tags"] });
             router.push(`/blogs/${data.insertedId}`);
           },
         }
       );
     }else{
-      console.log('update Blog')
       if(blogData){
 
         updateBlog({
@@ -124,7 +122,7 @@ const NewPost = ({ blogData = undefined }: Props) => {
             content: doc.body.innerHTML
           }
         },{
-          onSuccess(data, variables, context) {
+          onSuccess() {
             queryClient.invalidateQueries({ queryKey: ["tags"] });
             router.push(`/blogs/${blogData?._id}`);
           },
@@ -189,7 +187,8 @@ const NewPost = ({ blogData = undefined }: Props) => {
           <form onSubmit={handleSubmit(submit)}>
             <span>Title : </span>
             <InputText
-              {...register("title", {
+              {...register("title", 
+              {
                 required: { value: true, message: "กรุณากรอกชื่อเรื่อง" },
               })}
               value={title}
