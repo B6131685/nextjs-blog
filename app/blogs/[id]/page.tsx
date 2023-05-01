@@ -112,11 +112,14 @@ const Blog = (props: Props) => {
                     <div>Writer: {data?.user?.name}</div>
                     <div>
                       update:{" "}
-                      {new Date(data!.updateAt).toLocaleDateString("en-GB", {
+                      {data && data.updateAt ? new Date(data?.updateAt).toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "2-digit",
                         year: "numeric",
-                      })}
+                      })
+                      :
+                      "XXXX"
+                    }
                     </div>
                   </div>
                 </div>
