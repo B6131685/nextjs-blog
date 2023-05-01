@@ -29,7 +29,7 @@ html, body{
   background-color: var(--bg-content);
 }
 
-body.homeLayout {
+.homeLayout {
   display: grid;
   grid-auto-columns: 1fr;
   grid-template-rows: 60px minmax( calc(100vh - 60px) , auto);

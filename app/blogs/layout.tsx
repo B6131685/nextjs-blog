@@ -6,8 +6,8 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <body className="homeLayout">
-          {children}
+    <body>
+      <div className="homeLayout">{children}</div>
     </body>
   );
 }
