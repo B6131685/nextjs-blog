@@ -1,16 +1,20 @@
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   // console.log('middleware working')
   // console.log("request.cookies at middleware",request.cookies)
+  const env = process.env.NODE_ENV;
+  let authToken: RequestCookie | undefined;
 
   if (request.nextUrl.pathname.search("new") === 1) {
-    // search() = string method
     const url = request.nextUrl.clone();
-    const auth = request.cookies.get("next-auth.session-token");
+    env == "development"
+      ? (authToken = request.cookies.get("next-auth.session-token"))
+      : (authToken = request.cookies.get("__Secure-next-auth.session-token"));
     url.pathname = "/blogs";
-    if (!auth) return NextResponse.redirect(url);
+    if (!authToken) return NextResponse.redirect(url);
   }
   return;
 }
