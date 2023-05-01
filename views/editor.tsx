@@ -7,7 +7,7 @@ import SunEditor from "suneditor-react";
 import SunEditorCore from "suneditor/src/lib/core";
 import { ChangeEvent, useRef, useState, KeyboardEvent, useEffect } from "react";
 import CButton from "@/components/buttons/button";
-import axios from "axios";
+
 import InputText from "@/components/input/input";
 import { useSession } from "next-auth/react";
 import TagLabel from "@/components/tagLabel/tagLabel";
@@ -21,6 +21,7 @@ import {
 import ValidateLabel from "@/components/validateLabel/ValidateLabel";
 import { useRouter } from "next/navigation";
 import { ISingleblog } from "@/services/blog/interface";
+import axios from "@/configs/axios/axios_config";
 
 interface Props {
   blogData: ISingleblog | undefined;
@@ -69,7 +70,7 @@ const Editor = ( { blogData }:Props) => {
       let base64EncodedText = (img.getAttribute("src") as string).split(",")[1];
 
       if (btoa(atob(base64EncodedText)) === base64EncodedText) {
-        const res = await axios.post("http://localhost:3000/api/hello", {
+        const res = await axios.post("/hello", {
           base64: base64EncodedText,
         });
 
