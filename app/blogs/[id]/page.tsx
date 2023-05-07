@@ -98,7 +98,7 @@ const Blog = () => {
                   })}
                 </div>
                 <div className={s.info}>
-                  <LinkCustom href={`./user/${data?.user._id}`}>
+                  {/* <a href={`./user/${data?.user._id}`}> */}
                     <Image
                       alt="menu.png"
                       src={data?.user?.image ?? ""}
@@ -106,7 +106,7 @@ const Blog = () => {
                       height={30}
                       className={s.writer}
                     />
-                  </LinkCustom>
+                  {/* </a> */}
                   <div>
                     <div>Writer: {data?.user?.name}</div>
                     <div>
