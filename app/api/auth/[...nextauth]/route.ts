@@ -1,9 +1,7 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
-import pino from "pino";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "@/libs/mongodb";
-import monogDBDriver from "@/libs/mongodb";
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -14,9 +12,6 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    signIn({ user, account, profile, email, credentials }: any) {
-      return true;
-    },
     async session({ session, token, user }: any) {
       session.token = token
       session.user = user
@@ -25,4 +20,5 @@ export const authOptions = {
   },
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };
