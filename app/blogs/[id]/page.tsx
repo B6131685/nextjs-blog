@@ -2,6 +2,7 @@
 import React from "react";
 import parse from "html-react-parser";
 import s from "./page.module.scss";
+import { useSession } from "next-auth/react";
 
 import { useDeleteBlogByID, useGetBlogById } from "@/services/blog";
 import { useRouter, usePathname } from "next/navigation";
@@ -17,6 +18,7 @@ import Skeleton from "react-loading-skeleton";
 const Blog = () => {
   const { mutate: deleteBlog, isLoading: isDeleting } = useDeleteBlogByID();
   const router = useRouter();
+  const { status, data: dataSection } = useSession();
   const path = usePathname();
   const { data, isFetching } = useGetBlogById(path?.split("/")[2] ?? null);
 
@@ -82,12 +84,12 @@ const Blog = () => {
                 <div className={s.Header}>
                   <h1>{data?.title}</h1>
                   <div className={s.control}>
-                    {/* {status === "authenticated" ? (
+                    {status === "authenticated" ? (
                       <>
                         <button onClick={handleDeleteBlog}>Delete</button>
                         <button  onClick={handleEditBlog}>Edit</button>
                       </>
-                    ) : null} */}
+                    ) : null}
                   </div>
                 </div>
                 <div className={s.tageSection}>
@@ -96,15 +98,15 @@ const Blog = () => {
                   })}
                 </div>
                 <div className={s.info}>
-                  {/* <a href={`./user/${data?.user._id}`}> */}
-                    {/* <Image
+                  <LinkCustom href={`./user/${data?.user._id}`}>
+                    <Image
                       alt="menu.png"
                       src={data?.user?.image ?? ""}
                       width={30}
                       height={30}
                       className={s.writer}
-                    /> */}
-                  {/* </a> */}
+                    />
+                  </LinkCustom>
                   <div>
                     <div>Writer: {data?.user?.name}</div>
                     <div>
