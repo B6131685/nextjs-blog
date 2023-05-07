@@ -1,16 +1,11 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import s from "./style.module.scss";
 import Image from "next/image";
 import IconUser from "public/icon-user.png";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import LinkCustom from "../LinkCustom";
-// import { getCookie, hasCookie } from 'cookies-next';
-// import { getCookies, setCookie, deleteCookie } from 'cookies-next';
-import { getCookies } from "cookies-next";
-
-import { useCookies } from "react-cookie";
 
 interface Item extends React.ButtonHTMLAttributes<HTMLDivElement> {
   name: string;

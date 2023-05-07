@@ -6,9 +6,9 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <body className="homeLayout">
+    <div className="homeLayout">
           <Header hiddenMenuSideNav={true}/>
           {children}
-    </body>
+    </div>
   );
 }

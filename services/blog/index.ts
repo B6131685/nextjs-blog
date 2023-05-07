@@ -28,7 +28,7 @@ export function useGetBlogById(id:string | null):UseQueryResult<ISingleblog> {
       throw new Error(`Fail to get blog: ${id}`)
     }
   },{
-    enabled: id !== null
+    enabled: id !== null 
   });
 }
 
@@ -45,7 +45,7 @@ export const useCreateBlog = () => {
 };
 
 
-export const useGetListUserBlog = (id:string) => {
+export const useGetListUserBlog = (id: string | undefined) => {
   return useQuery(['myblog', id], async () => {
     const res = await axios.get(`/blog/user/${id}`);   
 
@@ -54,6 +54,8 @@ export const useGetListUserBlog = (id:string) => {
     }else{
       throw new Error(`Fail to get blog: ${id}`)
     }
+  },{
+    enabled: !!id
   });
 }
 

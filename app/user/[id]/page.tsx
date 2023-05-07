@@ -13,7 +13,7 @@ const User = () => {
   const path = usePathname();
 
   const { data: listBlog, isLoading: isListBlogLoading } = useGetListUserBlog(
-    path?.split("/")[2] ?? ""
+    path?.split("/")[2] ?? undefined
   );
 
   const { data: user, isLoading: isUserLoading } = useGetUserByID(

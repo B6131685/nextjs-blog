@@ -2,8 +2,8 @@
 import React from "react";
 import parse from "html-react-parser";
 import s from "./page.module.scss";
-import { useSession } from "next-auth/react";
-// import { useRouter } from 'next/router';
+// import { useSession } from "next-auth/react";
+
 import { useDeleteBlogByID, useGetBlogById } from "@/services/blog";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
@@ -14,19 +14,18 @@ import Header from "@/components/header/Header";
 import { AxiosError } from "axios";
 import Loading from "@/components/loading/Loading";
 import Skeleton from "react-loading-skeleton";
-type Props = {};
 
-const Blog = (props: Props) => {
+const Blog = () => {
   const { mutate: deleteBlog, isLoading: isDeleting } = useDeleteBlogByID();
   const router = useRouter();
-  const { status, data: dataSection } = useSession();
+  // const { status, data: dataSection } = useSession();
   const path = usePathname();
   const { data, isFetching } = useGetBlogById(path?.split("/")[2] ?? null);
 
   const handleDeleteBlog = () => {
     if (path?.split("/")[2]) {
       deleteBlog(path?.split("/")[2], {
-        onSuccess(data, variables, context) {
+        onSuccess() {
           router.push("/blogs");
         },
         onError(error, variables, context) {
@@ -85,12 +84,12 @@ const Blog = (props: Props) => {
                 <div className={s.Header}>
                   <h1>{data?.title}</h1>
                   <div className={s.control}>
-                    {status === "authenticated" ? (
+                    {/* {status === "authenticated" ? (
                       <>
                         <button onClick={handleDeleteBlog}>Delete</button>
                         <button  onClick={handleEditBlog}>Edit</button>
                       </>
-                    ) : null}
+                    ) : null} */}
                   </div>
                 </div>
                 <div className={s.tageSection}>
