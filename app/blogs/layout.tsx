@@ -1,4 +1,3 @@
-// import TanStackProvider from "@/providers/tanstackProvider";
 
 export default function HomeLayout({
   children,
@@ -6,10 +5,8 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    // <TanStackProvider>
     <>
       <div className="homeLayout">{children}</div>
     </>
-    // </TanStackProvider>
   );
 }
