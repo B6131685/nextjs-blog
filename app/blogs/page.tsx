@@ -5,7 +5,7 @@ import s from "./page.module.scss";
 import { useGetBlogs } from "@/services/blog/index";
 import Card from "@/components/card/Card";
 import { Datum } from "@/services/blog/interface";
-import Link from "next/link";
+// import Link from "next/link";
 import { useGetTags } from "@/services/tag";
 import TagLabel from "@/components/tagLabel/tagLabel";
 import { ITage } from "@/services/tag/interface";
@@ -59,7 +59,7 @@ export default function Home() {
             {data?.pages.map((item) => {
               return item?.data?.map((blog: Datum) => {
                 return (
-                  <Link
+                  <a
                     key={blog._id}
                     href={`/blogs/${blog._id}`}
                     style={{ textDecoration: "none" }}
@@ -70,7 +70,7 @@ export default function Home() {
                       writer={blog.user.name}
                       tags={blog.tags}
                     />
-                  </Link>
+                  </a>
                 );
               });
             })}
