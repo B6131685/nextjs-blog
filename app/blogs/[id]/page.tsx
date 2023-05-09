@@ -5,7 +5,7 @@ import s from "./page.module.scss";
 import { useSession } from "next-auth/react";
 
 import { useDeleteBlogByID, useGetBlogById } from "@/services/blog";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, useParams  } from "next/navigation";
 import Image from "next/image";
 import { Tag } from "@/services/blog/interface";
 import TagLabel from "@/components/tagLabel/tagLabel";
@@ -19,13 +19,13 @@ const Blog = () => {
   const { mutate: deleteBlog, isLoading: isDeleting } = useDeleteBlogByID();
   const router = useRouter();
   const { status, data: dataSection } = useSession();
-  const path = usePathname();
-  const { data, isFetching } = useGetBlogById(path?.split("/")[2] ?? null);
+  const {id} = useParams ();
+  const { data, isFetching } = useGetBlogById(id);
 
   const handleDeleteBlog = () => {
-    if (path?.split("/")[2]) {
-      deleteBlog(path?.split("/")[2], {
-        onSuccess() {
+    if (id) {
+      deleteBlog(id, {
+        onSuccess() {s
           router.push("/blogs");
         },
         onError(error, variables, context) {
@@ -40,7 +40,7 @@ const Blog = () => {
   };
 
   const handleEditBlog = ()=> {
-    router.push(`/edit/${path?.split("/")[2]}` );
+    router.push(`/edit/${id}` );
   }
   return (
     <>
