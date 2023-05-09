@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 
 import { useDeleteBlogByID, useGetBlogById } from "@/services/blog";
 import { useRouter, useParams  } from "next/navigation";
-import Image from "next/image";
+// import Image from "next/image";
 import { Tag } from "@/services/blog/interface";
 import TagLabel from "@/components/tagLabel/tagLabel";
 import LinkCustom from "@/components/LinkCustom";
@@ -99,13 +99,13 @@ const Blog = () => {
                 </div>
                 <div className={s.info}>
                   <LinkCustom href={`./user/${data?.user._id}`}>
-                    <Image
+                    {/* <Image
                       alt="menu.png"
                       src={data?.user?.image ?? ""}
                       width={30}
                       height={30}
                       className={s.writer}
-                    />
+                    /> */}
                   </LinkCustom>
                   <div>
                     <div>Writer: {data?.user?.name}</div>
