@@ -43,7 +43,7 @@ const Blog = () => {
     router.push(`/edit/${id}` );
   }
 
-  //add commment
+  
   return (
     <>
       {!!isFetching || !!isDeleting ? <Loading /> : null}
