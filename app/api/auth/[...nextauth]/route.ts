@@ -18,7 +18,7 @@ const handler = NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      return process.env.NEXTAUTH_URL as string
+      return baseUrl
     },
   },
 });
