@@ -23,7 +23,7 @@
     "html-react-parser": "^3.0.16",
     "mongodb": "^4.15.0",
     "next": "^13.3.1",
-    "next-auth": "^4.22.0",
+    "next-auth": "^4.22.1",
     "pino": "^8.11.0",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
