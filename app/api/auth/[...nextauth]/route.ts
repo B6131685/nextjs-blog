@@ -17,6 +17,9 @@ const handler = NextAuth({
       session.user = user
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
   },
 });
 export { handler as GET, handler as POST };
