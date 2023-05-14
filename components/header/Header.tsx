@@ -108,7 +108,7 @@ const Header = ({ hiddenMenuSideNav = false }: Props) => {
               case "unauthenticated":
                 return (
                   <>
-                    <CButton variant="blue" onClick={() => signIn('github')}>
+                    <CButton variant="blue" onClick={() => { signIn('github')} }>
                       Log in
                     </CButton>{" "}
                   </>
