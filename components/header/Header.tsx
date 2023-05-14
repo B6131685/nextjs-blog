@@ -28,7 +28,21 @@ const Header = ( {hiddenMenuSideNav = false}:Props) => {
   const [search, setSearch] = useState<string>(''); 
   const { data: session, status } = useSession();
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
+
+  const socialAction = (action: string) => {
+    console.log('socialAction')
+    signIn(action, { redirect: false })
+      .then((callback) => {
+        if (callback?.error) {
+          alert('Invalid credentials!');
+        }
+
+        if (callback?.ok) {
+          router.push('/blogs')
+        }
+      })
+  } 
 
   function toggleSideNav() {
     sideNavState.open

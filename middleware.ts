@@ -1,6 +1,7 @@
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { withAuth } from "next-auth/middleware";
 
 export async function middleware(request: NextRequest) {
   // console.log('middleware working')
@@ -18,6 +19,13 @@ export async function middleware(request: NextRequest) {
   }
   return;
 }
+
+
+export default withAuth({
+  pages: {
+    signIn: "/",
+  },
+});
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
