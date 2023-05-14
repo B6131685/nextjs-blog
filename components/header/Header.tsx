@@ -110,7 +110,7 @@ const Header = ( {hiddenMenuSideNav = false}:Props) => {
                 return (
                   <>
                     <Link href="/login">
-                      <CButton variant="blue" onClick={() => signIn()}>
+                      <CButton variant="blue" onClick={() => signIn('github')}>
                         Log in
                       </CButton>{" "}
                     </Link>
