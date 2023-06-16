@@ -96,7 +96,6 @@ const Editor = ( { blogData }:Props) => {
     setWaiteSaveImg(false);
 
     if (session?.user?.email && !blogData) {
-      console.log('create Blog')
       createBlog(
         {
           email: session?.user?.email,
@@ -149,6 +148,7 @@ const Editor = ( { blogData }:Props) => {
   }
 
   function DeleteTage(index: number) {
+    queryClient.invalidateQueries({ queryKey: ["tags"] });
     setTags((prev) => [...prev.filter((_, i) => index !== i)]);
   }
 

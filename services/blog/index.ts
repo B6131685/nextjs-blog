@@ -4,7 +4,6 @@ import { IListBlogs, IPostBlog, ISingleblog } from "./interface";
 
 export const useGetBlogs = (titleQuery:string = "", tag:string="", pag:number=1): UseInfiniteQueryResult<any> => {
     return useInfiniteQuery<IListBlogs>(["get-blogs"], async ({pageParam=1}) => {
-      
       const res = await axios.get(`/blog` ,{ params: { page:pageParam ?? pag , query: titleQuery, tag }});      
       if (res.status >= 200 && res.status < 300)  {
         return res.data;

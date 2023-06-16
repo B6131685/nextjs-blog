@@ -14,6 +14,7 @@ import Header from "@/components/header/Header";
 import { AxiosError } from "axios";
 import Loading from "@/components/loading/Loading";
 import Skeleton from "react-loading-skeleton";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Blog = () => {
   const { mutate: deleteBlog, isLoading: isDeleting } = useDeleteBlogByID();
@@ -21,11 +22,12 @@ const Blog = () => {
   const { status, data: dataSection } = useSession();
   const path = usePathname();
   const { data, isFetching } = useGetBlogById(path?.split("/")[2] ?? null);
-
+  const queryClient = useQueryClient();
   const handleDeleteBlog = () => {
     if (path?.split("/")[2]) {
       deleteBlog(path?.split("/")[2], {
         onSuccess() {
+          queryClient.removeQueries({ queryKey: ["get-blogs"] });
           router.push("/blogs");
         },
         onError(error, variables, context) {
@@ -35,7 +37,7 @@ const Blog = () => {
         },
       });
     } else {
-      alert("can note delete");
+      alert("can not delete");
     }
   };
 

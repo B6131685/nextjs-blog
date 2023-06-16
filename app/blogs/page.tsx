@@ -16,7 +16,7 @@ export default function Home() {
   const sideNavState = useSideNav();
   const queryBlog = useQueryBlog();
   const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } =
-    useGetBlogs(queryBlog?.state.title, queryBlog?.state.tag);
+    useGetBlogs(queryBlog?.state?.title, queryBlog?.state?.tag);
   const queryClient = useQueryClient();
   const { data: listTags = [] } = useGetTags();
 
