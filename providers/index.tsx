@@ -10,13 +10,13 @@ type Props = {
 
 const AppProviders = ({ children }: Props) => {
   return (
-    <SessionProvider baseUrl="https://nextjs-blog-b6131685.vercel.app">
-      <QueryProvider>
-        <SideNavProvider>
-          <TanStackProvider>{children}</TanStackProvider>
-        </SideNavProvider>
-      </QueryProvider>
-    </SessionProvider>
+    <TanStackProvider>
+      <SessionProvider baseUrl="https://nextjs-blog-b6131685.vercel.app">
+        <QueryProvider>
+          <SideNavProvider>{children}</SideNavProvider>
+        </QueryProvider>
+      </SessionProvider>
+    </TanStackProvider>
   );
 };
 
