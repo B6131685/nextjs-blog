@@ -67,9 +67,9 @@ const Editor = ( { blogData }:Props) => {
       i++
     ) {
       let img = doc.body.getElementsByTagName("img")[i];
-      let base64EncodedText = (img.getAttribute("src") as string).split(",")[1];
-
-      if (btoa(atob(base64EncodedText)) === base64EncodedText) {
+      //sun editor ทดรูปภาพเป็น base64
+      let base64EncodedText = (img.getAttribute("src") as string).split(",")[1]; 
+      if (base64EncodedText && btoa(atob(base64EncodedText)) === base64EncodedText) {
         const res = await axios.post("/hello", {
           base64: base64EncodedText,
         });
