@@ -11,6 +11,7 @@ import TagLabel from "@/components/tagLabel/tagLabel";
 import { ITage } from "@/services/tag/interface";
 import { useQueryClient } from "@tanstack/react-query";
 import Header from "@/components/header/Header";
+import { useEffect } from "react";
 
 export default function Home() {
   const sideNavState = useSideNav();
@@ -20,6 +21,9 @@ export default function Home() {
   const queryClient = useQueryClient();
   const { data: listTags = [] } = useGetTags();
 
+  useEffect(()=>{
+    queryClient.refetchQueries({ queryKey: ["tags"] });
+  },[])
   return (
     <>
       <Header/>
