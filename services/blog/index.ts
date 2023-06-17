@@ -17,17 +17,16 @@ export const useGetBlogs = (titleQuery:string = "", tag:string="", pag:number=1)
     });
 };
 
-export function useGetBlogById(id:string | null):UseQueryResult<ISingleblog> {
+export function useGetBlogById(id:string | null, canFetch:boolean=true):UseQueryResult<ISingleblog> {
   return useQuery(['blog', id], async () => {
     const res = await axios.get(`/blog/${id}`);   
-
     if (res.status >= 200 && res.status < 300)  {
       return res.data;
     }else{
       throw new Error(`Fail to get blog: ${id}`)
     }
   },{
-    enabled: id !== null 
+    enabled: id !== null && canFetch
   });
 }
 

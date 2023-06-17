@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useLayoutEffect, useState  } from "react";
 import parse from "html-react-parser";
 import s from "./page.module.scss";
 import { useSession } from "next-auth/react";
@@ -17,11 +17,12 @@ import Skeleton from "react-loading-skeleton";
 import { useQueryClient } from "@tanstack/react-query";
 
 const Blog = () => {
+  let [firstrender,setFirstRender] = useState<boolean>(true);
   const { mutate: deleteBlog, isLoading: isDeleting } = useDeleteBlogByID();
   const router = useRouter();
   const { status, data: dataSection } = useSession();
   const path = usePathname();
-  const { data, isFetching } = useGetBlogById(path?.split("/")[2] ?? null);
+  const { data, isFetching, status:statusBlogs } = useGetBlogById(path?.split("/")[2], firstrender);
   const queryClient = useQueryClient();
   const handleDeleteBlog = () => {
     if (path?.split("/")[2]) {
@@ -29,6 +30,7 @@ const Blog = () => {
         onSuccess() {
           queryClient.removeQueries({ queryKey: ["get-blogs"] });
           router.push("/blogs");
+          setFirstRender(false)
         },
         onError(error, variables, context) {
           if (error instanceof AxiosError) {
@@ -44,6 +46,10 @@ const Blog = () => {
   const handleEditBlog = ()=> {
     router.push(`/edit/${path?.split("/")[2]}` );
   }
+
+  useEffect(()=>{
+    setFirstRender(false)
+  },[])
   return (
     <>
       {!!isFetching || !!isDeleting ? <Loading /> : null}
