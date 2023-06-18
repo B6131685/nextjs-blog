@@ -13,3 +13,12 @@ export function useGetTags():UseQueryResult<ITage[]> {
       }
     },);
 }
+
+export async function getTags() {
+    const res = await axios.get(`/tag`);   
+    if (res.status >= 200 && res.status < 300)  {
+      return res.data;
+    }else{
+      throw new Error(`Fail to get list tags `)
+    }
+}
