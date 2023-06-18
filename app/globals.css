@@ -46,3 +46,7 @@ body.loginLayout{
 @media screen and (width <= 700px ) {
   
 }
+
+img{
+  max-width: 100%;
+}
