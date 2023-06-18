@@ -79,7 +79,7 @@ const Editor = ( { blogData }:Props) => {
         // img.setAttribute("max-width", "600px");
         (img.style.height = "auto"),
           (img.style.width = "100%"),
-          (img.style.maxWidth = "600px"),
+          (img.style.maxWidth = "100%"),
           img.setAttribute("src", res.data.publicURL);
         img.parentElement && (img.parentElement.style.textAlign = "center");
       }
