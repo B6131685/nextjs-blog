@@ -88,8 +88,9 @@ const Editor = ( { blogData }:Props) => {
     
     
     for (let index = 0; index < Array.from(doc.body.getElementsByClassName("se-image-container")).length; index++) {      
-      let containerDIV = doc.body.getElementsByClassName("se-image-container")[index];
+      let containerDIV = doc.body.getElementsByClassName("se-image-container")[index] as HTMLElement;
       containerDIV.setAttribute("contentEditable","true")
+      containerDIV.style.maxWidth = "100%";
       containerDIV.setAttribute("suppressContentEditableWarning","true")
     }
     
