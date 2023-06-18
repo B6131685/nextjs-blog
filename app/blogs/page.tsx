@@ -25,7 +25,6 @@ export default function Home() {
 
   useEffect(()=>{
     getTags().then(
-      
       (res)=>{
         setListTags(res)
       }

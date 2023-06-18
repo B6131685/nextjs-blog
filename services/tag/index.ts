@@ -15,9 +15,10 @@ export function useGetTags():UseQueryResult<ITage[]> {
 }
 
 export async function getTags() {
-    const res = await axios.get(`/tag`);   
+    // const res = await axios.get(`/tag`);   
+    let res = await fetch('http://localhost:3000/api/tag', { cache:'no-store' });
     if (res.status >= 200 && res.status < 300)  {
-      return res.data;
+      return await res.json();;
     }else{
       throw new Error(`Fail to get list tags `)
     }
