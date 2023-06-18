@@ -16,7 +16,7 @@ export function useGetTags():UseQueryResult<ITage[]> {
 
 export async function getTags() {
     // const res = await axios.get(`/tag`);   
-    let res = await fetch('http://localhost:3000/api/tag', { cache:'no-store' });
+    let res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL_AXIOS}/tag`, { cache:'no-store' });
     if (res.status >= 200 && res.status < 300)  {
       return await res.json();;
     }else{
