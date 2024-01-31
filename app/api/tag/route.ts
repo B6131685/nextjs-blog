@@ -1,6 +1,8 @@
 import { TagCollection } from "@/libs/collections/tagCollection";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const tagsCollection = await TagCollection();

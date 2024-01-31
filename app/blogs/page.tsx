@@ -6,29 +6,23 @@ import { useGetBlogs } from "@/services/blog/index";
 import Card from "@/components/card/Card";
 import { Datum } from "@/services/blog/interface";
 import Link from "next/link";
-import { getTags, useGetTags } from "@/services/tag";
+import { useGetTags } from "@/services/tag";
 import TagLabel from "@/components/tagLabel/tagLabel";
 import { ITage } from "@/services/tag/interface";
 import { useQueryClient } from "@tanstack/react-query";
 import Header from "@/components/header/Header";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Home() {
-  const [listTags, setListTags] = useState([])
   const sideNavState = useSideNav();
   const queryBlog = useQueryBlog();
   const { data, fetchNextPage, hasNextPage, isLoading, isFetchingNextPage } =
     useGetBlogs(queryBlog?.state?.title, queryBlog?.state?.tag);
   const queryClient = useQueryClient();
-  // const { data: listTags = [] } = useGetTags();
+  const { data: listTags = [] } = useGetTags();
   
 
   useEffect(()=>{
-    getTags().then(
-      (res)=>{
-        setListTags(res)
-      }
-    )
     queryClient.refetchQueries({ queryKey: ["tags"] });
   },[])
   return (
@@ -55,8 +49,6 @@ export default function Home() {
                           type: selected ? "deleteTage" : "addTage",
                           payload: { tag: item._id },
                         });
-                        // remove()
-                        // refetch()
                         queryClient.removeQueries({ queryKey: ["get-blogs"] });
                         queryClient.refetchQueries({ queryKey: ["get-blogs"] });
                       }

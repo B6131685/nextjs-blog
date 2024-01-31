@@ -4,7 +4,9 @@ import { ITage } from "./interface";
 
 export function useGetTags():UseQueryResult<ITage[]> {
     return useQuery(['tags'], async () => {
-      const res = await axios.get(`/tag`);   
+      const res = await axios.get(`/tag`,{ headers: {
+        cache: 'no-store'
+      }});   
   
       if (res.status >= 200 && res.status < 300)  {
         return res.data;
@@ -12,14 +14,4 @@ export function useGetTags():UseQueryResult<ITage[]> {
         throw new Error(`Fail to get list tags `)
       }
     },);
-}
-
-export async function getTags() {
-    // const res = await axios.get(`/tag`);   
-    let res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL_AXIOS}/tag`, { cache:'no-store' });
-    if (res.status >= 200 && res.status < 300)  {
-      return await res.json();;
-    }else{
-      throw new Error(`Fail to get list tags `)
-    }
 }

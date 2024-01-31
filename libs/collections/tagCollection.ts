@@ -6,7 +6,6 @@ export const TagCollection = async (): Promise<Collection<Document>> => {
     const client = await monogDBDriver;
     const db = client.db("blog-next-rfc");
     const tags = db.collection("tags");
-
     return tags;
   } catch (error) {
     throw new Error("can not connect tags Collection");
