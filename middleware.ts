@@ -17,7 +17,6 @@ export async function middleware(request: NextRequest) {
     url.pathname = "/blogs";
     if (!authToken) return NextResponse.redirect(url);
   }
-  return;
 }
 
 
