@@ -4,7 +4,6 @@ import BlogLogo from "@/components/BlogLogo";
 import Link from "next/link";
 import s from "./style.module.scss";
 import dynamic from "next/dynamic";
-// import SunEditor from "suneditor-react";
 const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
 });
@@ -181,8 +180,7 @@ const Editor = ({ blogData = undefined }: Props) => {
       </aside>
       <div className={s.formCard}>
         <div className={s.title}>
-          {/* <form onSubmit={handleSubmit(submit)}> */}
-          <form>
+          <form onSubmit={handleSubmit(submit)}>
             <span>Title : </span>
             <InputText
               {...register("title", {
