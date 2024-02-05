@@ -15,9 +15,3 @@ export async function GET() {
     return NextResponse.json({error},{status:500})
   }
 }
-
-export const OPTIONS = async (request: NextRequest) => {
-  return new NextResponse('', {
-    status: 200
-  })
-}
