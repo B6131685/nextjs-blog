@@ -3,7 +3,11 @@ import { useForm } from "react-hook-form";
 import BlogLogo from "@/components/BlogLogo";
 import Link from "next/link";
 import s from "./style.module.scss";
-import SunEditor from "suneditor-react";
+import dynamic from "next/dynamic";
+// import SunEditor from "suneditor-react";
+const SunEditor = dynamic(() => import("suneditor-react"), {
+  ssr: false,
+});
 import SunEditorCore from "suneditor/src/lib/core";
 import { ChangeEvent, useRef, useState, KeyboardEvent, useEffect } from "react";
 import CButton from "@/components/buttons/button";
@@ -19,14 +23,14 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import ValidateLabel from "@/components/validateLabel/ValidateLabel";
-import { useRouter } from "next/navigation";
 import { ISingleblog } from "@/services/blog/interface";
 import axios from "@/configs/axios/axios_config";
+import router from "next/router";
 
 interface Props {
-  blogData: ISingleblog | undefined;
+  blogData?: ISingleblog | undefined;
 }
-const Editor = ( { blogData }:Props) => {
+const Editor = ({ blogData = undefined }: Props) => {
   const queryClient = useQueryClient();
   const { data: session } = useSession();
 
@@ -35,8 +39,10 @@ const Editor = ( { blogData }:Props) => {
   const [tages, setTags] = useState<string[]>([]);
 
   const [waiteSaveImg, setWaiteSaveImg] = useState<boolean>(false);
-  const { isLoading: isLoadingCreateBlog, mutate: createBlog } = useCreateBlog();
-  const { isLoading: isLoadingUpdateBlog ,mutate:updateBlog } = useUpdateBlogByID();
+  const { isLoading: isLoadingCreateBlog, mutate: createBlog } =
+    useCreateBlog();
+  const { isLoading: isLoadingUpdateBlog, mutate: updateBlog } =
+    useUpdateBlogByID();
   const isFetching = useIsFetching();
   const isMutating = useIsMutating();
 
@@ -47,19 +53,16 @@ const Editor = ( { blogData }:Props) => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm();
-  const router = useRouter();
   const getSunEditorInstance = (sunEditor: SunEditorCore) => {
     editor.current = sunEditor;
   };
 
   const submit = async () => {
     setWaiteSaveImg(true);
-    const doc = new DOMParser().parseFromString(
+    const doc:Document = new DOMParser().parseFromString(
       editor.current?.getContents(true) as string,
       "text/html"
-    );
-
-    // console.log(editor.current?.getContents(true));
+    )
 
     for (
       let i = 0;
@@ -68,16 +71,13 @@ const Editor = ( { blogData }:Props) => {
     ) {
       let img = doc.body.getElementsByTagName("img")[i];
       //sun editor ทดรูปภาพเป็น base64
-      let base64EncodedText = (img.getAttribute("src") as string).split(",")[1]; 
+      let base64EncodedText = (img.getAttribute("src") as string).split(",")[1];
       if (base64EncodedText && btoa(atob(base64EncodedText)) === base64EncodedText) {
         const res = await axios.post("/hello", {
           base64: base64EncodedText,
         });
 
-        // img.setAttribute("height", "auto");
-        // img.setAttribute("width", "100%");
-        // img.setAttribute("max-width", "600px");
-        (img.style.height = "auto"),
+          (img.style.height = "auto"),
           (img.style.width = "100%"),
           (img.style.maxWidth = "100%"),
           img.setAttribute("src", res.data.publicURL);
@@ -85,15 +85,13 @@ const Editor = ( { blogData }:Props) => {
       }
     }
 
-    
-    
-    for (let index = 0; index < Array.from(doc.body.getElementsByClassName("se-image-container")).length; index++) {      
+    for (let index = 0; index < Array.from(doc.body.getElementsByClassName("se-image-container")).length; index++) {
       let containerDIV = doc.body.getElementsByClassName("se-image-container")[index] as HTMLElement;
       containerDIV.setAttribute("contentEditable","true")
       containerDIV.style.maxWidth = "100%";
       containerDIV.setAttribute("suppressContentEditableWarning","true")
     }
-    
+
     setWaiteSaveImg(false);
 
     if (session?.user?.email && !blogData) {
@@ -165,8 +163,6 @@ const Editor = ( { blogData }:Props) => {
     }
   }, []);
 
-  
-
   return (
     <div className={s.container}>
       {!!isFetching || !!isMutating || waiteSaveImg ? <Loading /> : null}
@@ -185,11 +181,11 @@ const Editor = ( { blogData }:Props) => {
       </aside>
       <div className={s.formCard}>
         <div className={s.title}>
-          <form onSubmit={handleSubmit(submit)}>
+          {/* <form onSubmit={handleSubmit(submit)}> */}
+          <form>
             <span>Title : </span>
             <InputText
-              {...register("title", 
-              {
+              {...register("title", {
                 required: { value: true, message: "กรุณากรอกชื่อเรื่อง" },
               })}
               value={title}
@@ -220,40 +216,42 @@ const Editor = ( { blogData }:Props) => {
         </div>
       </div>
       <div className={s.editor_container}>
-        <SunEditor
-          getSunEditorInstance={getSunEditorInstance}
-          placeholder="Write Text ..."
-          setOptions={{
-            minHeight: "500px",
-            height: "auto",
-            defaultStyle: "font-size: 20px ",
-            imageAlignShow: false,
-            imageUploadSizeLimit: 16000000,
-            imageHeight: "auto",
-            imageWidth: "40%",
-            fontSize: [
-              8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72,
-            ],
-            buttonList: [
-              ["undo", "redo"],
-              [
-                "bold",
-                "italic",
-                "underline",
-                "strike",
-                "fontSize",
-                "fontColor",
-                "hiliteColor",
-                "outdent",
-                "indent",
-                "list",
-                "removeFormat",
+        {<SunEditor /> ? (
+          <SunEditor
+            getSunEditorInstance={getSunEditorInstance}
+            placeholder="Write Text ..."
+            setOptions={{
+              minHeight: "500px",
+              height: "auto",
+              defaultStyle: "font-size: 20px ",
+              imageAlignShow: false,
+              imageUploadSizeLimit: 16000000,
+              imageHeight: "auto",
+              imageWidth: "40%",
+              fontSize: [
+                8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72,
               ],
-              ["image"],
-              ["showBlocks", "codeView"],
-            ],
-          }}
-        />
+              buttonList: [
+                ["undo", "redo"],
+                [
+                  "bold",
+                  "italic",
+                  "underline",
+                  "strike",
+                  "fontSize",
+                  "fontColor",
+                  "hiliteColor",
+                  "outdent",
+                  "indent",
+                  "list",
+                  "removeFormat",
+                ],
+                ["image"],
+                ["showBlocks", "codeView"],
+              ],
+            }}
+          />
+        ) : null}
       </div>
     </div>
   );

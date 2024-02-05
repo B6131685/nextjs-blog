@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import NewPost from '../../new/page'
 import { usePathname } from 'next/navigation';
 import { useGetBlogById } from '@/services/blog';
 import Editor from '@/views/editor';

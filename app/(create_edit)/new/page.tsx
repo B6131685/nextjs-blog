@@ -1,8 +1,9 @@
+"use client";
 import Editor from "@/views/editor";
 
 const NewPost = () => {
  
-  return <Editor blogData={undefined}/>
+  return <Editor />
 };
 
 export default NewPost;
